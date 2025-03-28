@@ -46,8 +46,8 @@ const Navbar = () => {
               {navbarItem}
             </ul>
           </div>
-          <a className="text-2xl font-semibold">
-            BOOK<span className="text-pink-900">STORE</span>
+          <a className="text-[18px] md:text-2xl font-semibold">
+            BOOK<span className="text-pink-500">STORE</span>
           </a>
         </div>
         <div className="navbar-end space-x-3">
