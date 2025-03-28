@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import listBook from "../../public/list.json";
 import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 
 const Course = () => {
+  const [book, setBook] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setBook(listBook);
+      setIsLoading(false);
+    }, 3000);
+    return () => {
+      clearTimeout;
+    };
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <div className="max-w-[95%] container mx-auto md-px-20 px-4 my-10 space-y-6">
@@ -32,8 +50,7 @@ const Course = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 space-y-6">
-          {listBook &&
-            listBook.map((book) => <Card key={book.name} book={book} />)}
+          {book && book.map((book) => <Card key={book.name} book={book} />)}
         </div>
       </div>
     </>

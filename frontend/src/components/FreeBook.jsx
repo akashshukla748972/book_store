@@ -4,16 +4,27 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import list from "../../public/list.json";
 import Card from "./Card";
+import Loader from "../pages/Loader";
 
 const FreeBook = () => {
   const [freeBook, setFreeBook] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
-    const books = list.filter((book) => {
-      return book.price == 0;
-    });
+    setIsLoading(true);
+    let books;
+    setTimeout(() => {
+      books = list.filter((book) => {
+        return book.price == 0;
+      });
+      setIsLoading(false);
+    }, 3000);
 
     setFreeBook(books);
   }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   var settings = {
     dots: true,
