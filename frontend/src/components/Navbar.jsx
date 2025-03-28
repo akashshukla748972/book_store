@@ -80,7 +80,7 @@ const Navbar = () => {
               />
             </label>
           </div>
-          <div className="toggle">
+          <div className="">
             <label className="swap swap-rotate">
               {/* this hidden checkbox controls the state */}
               <input
