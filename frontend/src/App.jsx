@@ -1,15 +1,13 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import Banner from "./components/Banner";
 import Footer from "./components/Footer";
-import FreeBook from "./components/FreeBook";
+import MainRouting from "./utils/MainRouting";
 
 const App = () => {
   return (
     <div>
       <Navbar />
-      <Banner />
-      <FreeBook />
+      <MainRouting />
       <Footer />
     </div>
   );

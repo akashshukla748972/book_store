@@ -38,7 +38,7 @@ const Banner = () => {
                 </svg>
                 <input type="email" placeholder="mail@site.com" required />
               </label>
-              <button className="btn btn-secondary w-fit">Secondary</button>
+              <button className="btn btn-secondary w-fit">Send Mail</button>
             </div>
           </div>
         </div>
