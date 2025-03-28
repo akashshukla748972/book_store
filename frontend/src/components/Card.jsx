@@ -2,7 +2,7 @@ import React from "react";
 
 const Card = ({ book }) => {
   return (
-    <div className="card bg-base-100 w-96 shadow-xl border hover:shadow-2xl p-2 hover:scale-105 hover:border-none duration-300 transition-all ease-in-out">
+    <div className="card bg-base-100 w-96 shadow-xl hover:shadow-2xl p-2 hover:scale-105 duration-300 transition-all ease-in-out">
       <figure>
         <img src={book.image_url} alt="Shoes" className="h-52 w-[100%]" />
       </figure>
