@@ -11,12 +11,12 @@ const Course = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
+    const getCourse = setTimeout(() => {
       setBook(listBook);
       setIsLoading(false);
     }, 3000);
     return () => {
-      clearTimeout;
+      clearTimeout(getCourse);
     };
   }, []);
 

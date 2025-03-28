@@ -11,15 +11,18 @@ const FreeBook = () => {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     setIsLoading(true);
-    let books;
-    setTimeout(() => {
-      books = list.filter((book) => {
+
+    const filterBook = setTimeout(() => {
+      const books = list.filter((book) => {
         return book.price == 0;
       });
+      setFreeBook(books);
       setIsLoading(false);
     }, 3000);
 
-    setFreeBook(books);
+    return () => {
+      clearTimeout(filterBook);
+    };
   }, []);
 
   if (isLoading) {
