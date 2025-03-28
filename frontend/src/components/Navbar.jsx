@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
-  console.log("sticky: ", sticky);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +35,7 @@ const Navbar = () => {
   );
   return (
     <div
-      className={`max-w-screen-2xl container mx-auto md-px-20 px-4 fixed top-0 left-0 right-0 z-50 ${
+      className={`max-w-[95%] container mx-auto md-px-20 px-4 fixed top-0 left-0 right-0 z-50 ${
         sticky &&
         "sticky-navbar shadow-md bg-base-200 duration-300 transition-all ease-in-out"
       }`}
