@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Login from "../pages/Login";
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
@@ -149,9 +150,13 @@ const Navbar = () => {
             </label>
           </div>
           <div className="">
-            <a className="bg-black text-white p-2 rounded-md hover:bg-slate-500 duration-300">
+            <a
+              onClick={() => document.getElementById("my_modal_3").showModal()}
+              className="bg-black text-white p-2 rounded-md hover:bg-slate-500 duration-300 cursor-pointer"
+            >
               Login
             </a>
+            <Login />
           </div>
         </div>
       </div>
