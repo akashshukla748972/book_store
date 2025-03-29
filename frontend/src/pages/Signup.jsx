@@ -17,7 +17,6 @@ const Signup = () => {
   const navigate = useNavigate();
   return (
     <div className="flex justify-center items-center h-screen bg-white dark:bg-slate-900">
-      {/* <dialog id="my_modal_33" className="modal"> */}
       <div className="w-[400px] sm:w-[450px] md:w-[500px] text-gray-800  dark:bg-slate-800 relative p-6 shadow-2xl">
         <button
           onClick={() => navigate(-1)}
@@ -87,12 +86,11 @@ const Signup = () => {
               >
                 Login
               </button>
-              <Login />
             </span>
           </div>
         </form>
+        <Login />
       </div>
-      {/* </dialog> */}
     </div>
   );
 };
