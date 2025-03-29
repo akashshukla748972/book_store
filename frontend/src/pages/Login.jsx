@@ -53,7 +53,7 @@ const Login = () => {
               )}
             </div>
 
-            <div className="space-x-6 flex flex-col sm:flex-row sm:items-center">
+            <div className="space-x-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
               <button
                 className="bg-pink-500 text-gray-200 px-6 py-2 rounded-md"
                 type="submit"
