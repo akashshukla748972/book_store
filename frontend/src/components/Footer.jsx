@@ -5,7 +5,7 @@ const Footer = () => {
     <>
       <div className="mt-6">
         <hr />
-        <footer className="footer footer-horizontal footer-center text-base-content rounded p-10">
+        <footer className="footer footer-horizontal footer-center text-gray-800 bg-white dark:bg-gray-900 dark:text-gray-100  rounded p-10">
           <nav className="grid grid-flow-col gap-4">
             <a className="link link-hover">About us</a>
             <a className="link link-hover">Contact</a>

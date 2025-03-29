@@ -25,7 +25,7 @@ const Course = () => {
   }
   return (
     <>
-      <div className="max-w-[95%] container mx-auto md-px-20 px-4 my-10 space-y-6">
+      <div className="max-w-[95%] container mx-auto md-px-20 px-4 py-10 space-y-6">
         <div className="mt-28 flex flex-col items-center justify-center space-y-6 text-center">
           <h1 className="text-2xl md:text-4xl font-semibold">
             We're delighted to have you{" "}

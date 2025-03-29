@@ -3,6 +3,22 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
+  const element = document.documentElement;
+
+  useEffect(() => {
+    if (theme === "dark") {
+      element.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      document.body.classList.add("dark");
+    } else {
+      element.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      document.body.classList.remove("dark");
+    }
+  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +54,7 @@ const Navbar = () => {
     <div
       className={`max-w-[95%] container mx-auto md-px-20 px-4 fixed top-0 left-0 right-0 z-50 ${
         sticky &&
-        "sticky-navbar shadow-md bg-base-200 duration-300 transition-all ease-in-out"
+        "sticky-navbar shadow-md bg-gray-100 dark:bg-base-200 duration-300 transition-all ease-in-out"
       }`}
     >
       <div className="navbar shadow-sm">
@@ -113,6 +129,7 @@ const Navbar = () => {
 
               {/* sun icon */}
               <svg
+                onClick={() => setTheme(theme === "light" ? "dark" : "light")}
                 className="swap-off h-8 w-8 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -122,6 +139,7 @@ const Navbar = () => {
 
               {/* moon icon */}
               <svg
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="swap-on h-8 w-8 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
