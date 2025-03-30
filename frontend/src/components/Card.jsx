@@ -4,7 +4,7 @@ const Card = ({ book }) => {
   return (
     <div className="card dark:bg-base-100  w-full md:w-96 shadow-xl hover:shadow-2xl p-2 hover:scale-105 duration-300 transition-all ease-in-out hover:z-30">
       <figure>
-        <img src={book.image_url} alt="Shoes" className="h-52 w-[100%] " />
+        <img src={book.poster} alt="Shoes" className="h-52 w-[100%] " />
       </figure>
       <div className="card-body">
         <h2 className="card-title">

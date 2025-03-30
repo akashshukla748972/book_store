@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
-import listBook from "../../public/list.json";
 import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBook } from "../store/slices/bookSlice";
 
 const Course = () => {
-  const [book, setBook] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const getBook = useSelector((state) => state.book);
+  const dispatch = useDispatch();
+
+  const { books, isLoading } = getBook;
+  console.log("book:", getBook);
 
   useEffect(() => {
-    setIsLoading(true);
-    const getCourse = setTimeout(() => {
-      setBook(listBook);
-      setIsLoading(false);
-    }, 3000);
-    return () => {
-      clearTimeout(getCourse);
-    };
+    dispatch(getAllBook());
   }, []);
 
   if (isLoading) {
@@ -50,7 +47,7 @@ const Course = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 space-y-6">
-          {book && book.map((book) => <Card key={book.name} book={book} />)}
+          {books && books.map((book) => <Card key={book.name} book={book} />)}
         </div>
       </div>
     </>
