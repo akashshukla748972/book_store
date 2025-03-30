@@ -19,7 +19,7 @@ const Banner = () => {
             </p>
 
             <div className="flex flex-col space-y-6">
-              <label className="input validator bg-white text-gray-800 border">
+              <label className="input validator bg-gray-200 dark:bg-white text-gray-800 border">
                 <svg
                   className="h-[1em] opacity-50"
                   xmlns="http://www.w3.org/2000/svg"
