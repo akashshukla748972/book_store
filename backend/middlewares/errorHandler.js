@@ -1,18 +1,9 @@
 const globalErrorHandler = (err, req, res, next) => {
-  console.error("ERROR 💥:", err);
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || "error";
 
-  if (err.isOperational) {
-    return res.status(err.statusCode).json({
-      message: err.message,
-      status: err.status,
-      isSuccess: false,
-      isError: true,
-    });
-  }
-
-  return res.status(500).json({
-    message: "Something went wrong! Please try again later.",
-    status: "error",
+  res.status(err.statusCode).json({
+    message: err.message,
     isSuccess: false,
     isError: true,
   });
