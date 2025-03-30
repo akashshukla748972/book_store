@@ -47,3 +47,36 @@ export const handleGetSingleBook = async (req, res, next) => {
     next(new CustomError("Internal Server Error", 500));
   }
 };
+
+export const handleCreateBook = async (req, res, next) => {
+  try {
+    const { name, title, category, price } = req.body;
+    if (!name || !title || !category || !price) {
+      const errorField = [];
+      if (!name) errorField.push("Name");
+      if (!title) errorField.push("Title");
+      if (!category) errorField.push("Category");
+      if (!price) errorField.push("Price");
+
+      if (errorField.length > 0) {
+        return next(
+          new CustomError(`${errorField.join(", ")} is required`),
+          400
+        );
+      }
+    }
+
+    const newBook = await bookModel.create({
+      name: name,
+      title: title,
+      category: category,
+      price: price,
+    });
+    return res.status(200).json({
+      data: newBook,
+    });
+  } catch (error) {
+    console.error(`Error: ${error}`);
+    next(new CustomError("Internal Server Error", 500));
+  }
+};
