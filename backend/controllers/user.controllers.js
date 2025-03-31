@@ -28,11 +28,13 @@ export const handleUserRegister = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const newUser = await userModel.create({
+    let newUser = await userModel.create({
       name: name,
       email: email,
       password: hash,
     });
+
+    newUser = await userModel.findById(newUser._id).select("-password");
 
     return res.status(201).json({
       message: "User registered successfully",
@@ -85,7 +87,6 @@ export const handleUserLogin = async (req, res, next) => {
       message: "Successfully logged in",
       token: token?.token,
     });
-    
   } catch (error) {
     console.error(`Error: ${error}`);
     return next(new CustomError("Internal server error", 500));
