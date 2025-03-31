@@ -2,6 +2,7 @@ import userModel from "../models/user.model.js";
 import CustomError from "../utils/customError.js";
 import bcrypt from "bcrypt";
 import { getJwtToken } from "../utils/jwtToken.js";
+import mongoose from "mongoose";
 
 export const handleUserRegister = async (req, res, next) => {
   try {
@@ -86,6 +87,31 @@ export const handleUserLogin = async (req, res, next) => {
     return res.status(200).json({
       message: "Successfully logged in",
       token: token?.token,
+    });
+  } catch (error) {
+    console.error(`Error: ${error}`);
+    return next(new CustomError("Internal server error", 500));
+  }
+};
+
+export const handleGetUserData = async (req, res, next) => {
+  try {
+    const { user_id } = req.params;
+    console.log("id:", user_id);
+    if (!mongoose.isValidObjectId(user_id)) {
+      return next(new CustomError("Invalid user id", 400));
+    }
+
+    const user = await userModel.findById(user_id).select("-password");
+    if (!user) {
+      return next(new CustomError("User not fount", 404));
+    }
+
+    return res.status(200).json({
+      message: "Get user data successfully",
+      data: user,
+      isSuccess: true,
+      isError: false,
     });
   } catch (error) {
     console.error(`Error: ${error}`);
