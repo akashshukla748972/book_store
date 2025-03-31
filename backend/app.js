@@ -2,11 +2,14 @@ import express from "express";
 import cors from "cors";
 import globalErrorHandler from "./middlewares/errorHandler.js";
 import CustomError from "./utils/customError.js";
+import morgan from "morgan";
 
 import bookRoutes from "./routes/book.routes.js";
 import userRoutes from "./routes/user.routes.js";
 
 const app = express();
+
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
