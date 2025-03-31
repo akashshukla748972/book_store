@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserData, loginUser } from "../store/slices/userSlice";
 import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
+import Loader from "./Loader";
 
 const Login = () => {
   const {
@@ -21,21 +23,30 @@ const Login = () => {
 
   useEffect(() => {
     if (user.token) {
-      const { _id } = jwtDecode(user.token);
-      dispatch(getUserData(_id));
+      try {
+        const decoded = jwtDecode(user.token);
+        if (decoded._id) {
+          dispatch(getUserData(decoded._id));
+          toast.success("User logged in successfully");
+        }
+      } catch (error) {
+        console.error("Invalid Token:", error);
+      }
     }
   }, [user.token]);
 
-  if (user.user) {
-    navigate(-1);
-  }
+  useEffect(() => {
+    if (user.user) {
+      navigate("/");
+    }
+  }, [user.user]);
 
   return (
     <div>
       <dialog id="my_modal_3" className="modal">
+        {user.isLoading && <Loader />}
         <div className="modal-box bg-white dark:bg-slate-800">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
             <button
               onClick={() => navigate(-1)}
               className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
@@ -65,7 +76,7 @@ const Login = () => {
               </label>
               <input
                 {...register("password", { required: "Password is required!" })}
-                type="text"
+                type="password"
                 className="p-2 bg-gray-200 dark:bg-slate-900 outline-none"
                 placeholder="Enter your password"
               />
@@ -82,7 +93,7 @@ const Login = () => {
                 Login
               </button>
               <span className="">
-                Don't have account?{" "}
+                Don't have an account?{" "}
                 <Link
                   to="/signup"
                   className="text-pink-500 font-semibold hover:text-blue-500 hover:underline transition-all duration-300 ease-in-out"

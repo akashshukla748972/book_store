@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../store/slices/userSlice";
+import Loader from "./Loader";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const {
@@ -20,13 +22,14 @@ const Signup = () => {
   };
 
   if (user.successMessage) {
-    alert(user.successMessage);
+    toast.success(user.successMessage);
     navigate(-1);
   }
 
   return (
     <div className="flex justify-center items-center h-screen bg-white dark:bg-slate-900">
-      <div className="w-[400px] sm:w-[450px] md:w-[500px] text-gray-800  dark:bg-slate-800 relative p-6 shadow-2xl">
+      {user.isLoading && <Loader />}
+      <div className="w-[400px] sm:w-[450px] md:w-[500px] text-gray-800  dark:bg-slate-800 dark:text-gray-200 relative p-6 rounded-md shadow-2xl">
         <button
           onClick={() => navigate(-1)}
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 z-30"

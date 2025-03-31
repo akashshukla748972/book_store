@@ -3,6 +3,7 @@ import MainRouting from "./utils/MainRouting";
 import { jwtDecode } from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserData } from "./store/slices/userSlice";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <>
       <MainRouting />
+      <Toaster />
     </>
   );
 };
