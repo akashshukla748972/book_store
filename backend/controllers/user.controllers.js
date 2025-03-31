@@ -13,14 +13,15 @@ export const handleUserRegister = async (req, res, next) => {
 
       return next(
         new CustomError(
-          `${errorField > 0 && errorField.join(", ")} is required`
+          `${errorField.length > 0 && errorField.join(", ")} is required`,
+          400
         )
       );
     }
 
-    const user = await userModel.find({ email: email });
+    const user = await userModel.findOne({ email: email });
     if (user) {
-      return next(new CustomError("Email already exist"), 409);
+      return next(new CustomError("Email already exist", 409));
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -34,7 +35,7 @@ export const handleUserRegister = async (req, res, next) => {
 
     return res.status(201).json({
       message: "User registered successfully",
-      data: user,
+      data: newUser,
       isSuccess: true,
       isError: false,
     });

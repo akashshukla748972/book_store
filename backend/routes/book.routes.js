@@ -5,10 +5,10 @@ import {
   handleGetSingleBook,
 } from "../controllers/book.controllers.js";
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.get("/", handleGetAllBook);
-routes.get("/:book_id", handleGetSingleBook);
-routes.post("/create", handleCreateBook);
+router.get("/", handleGetAllBook);
+router.get("/:book_id", handleGetSingleBook);
+router.post("/create", handleCreateBook);
 
-export default routes;
+export default router;
