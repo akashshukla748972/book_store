@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Login from "../pages/Login";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../store/slices/userSlice";
+import Profile from "../pages/Profile";
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
@@ -158,11 +158,14 @@ const Navbar = () => {
             {user ? (
               <>
                 <button
-                  onClick={() => dispatch(logout())}
+                  onClick={() =>
+                    document.getElementById("my_modal_5").showModal()
+                  }
                   className="bg-black text-white p-2 rounded-md hover:bg-slate-500 duration-300 cursor-pointer"
                 >
-                  logout
+                  Profile
                 </button>
+                <Profile />
               </>
             ) : (
               <>
