@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../store/slices/userSlice";
 
 const Login = () => {
   const {
@@ -9,9 +11,12 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  console.log(user);
 
   const handleLogin = (e) => {
-    console.log(e);
+    dispatch(loginUser(e));
   };
   return (
     <div>

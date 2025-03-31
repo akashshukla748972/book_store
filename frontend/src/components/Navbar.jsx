@@ -150,12 +150,12 @@ const Navbar = () => {
             </label>
           </div>
           <div className="">
-            <a
+            <button
               onClick={() => document.getElementById("my_modal_3").showModal()}
               className="bg-black text-white p-2 rounded-md hover:bg-slate-500 duration-300 cursor-pointer"
             >
               Login
-            </a>
+            </button>
             <Login />
           </div>
         </div>
