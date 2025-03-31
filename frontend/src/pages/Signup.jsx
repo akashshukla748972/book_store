@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../store/slices/userSlice";
 
 const Signup = () => {
   const {
@@ -9,12 +11,19 @@ const Signup = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
-    console.log(e);
+    dispatch(registerUser(e));
   };
 
-  const navigate = useNavigate();
+  if (user.successMessage) {
+    alert(user.successMessage);
+    navigate(-1);
+  }
+
   return (
     <div className="flex justify-center items-center h-screen bg-white dark:bg-slate-900">
       <div className="w-[400px] sm:w-[450px] md:w-[500px] text-gray-800  dark:bg-slate-800 relative p-6 shadow-2xl">

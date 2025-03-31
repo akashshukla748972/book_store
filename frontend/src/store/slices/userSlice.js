@@ -7,6 +7,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: null,
+  successMessage: null,
 };
 
 export const loginUser = createAsyncThunk(
@@ -32,6 +33,19 @@ export const getUserData = createAsyncThunk(
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "User not found");
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "registerUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const respone = await Axios.post("/users/register", userData);
+      console.log("Response: ", respone);
+      return respone.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Sign Failed");
     }
   }
 );
@@ -71,6 +85,20 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getUserData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      });
+    builder
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.successMessage = action.payload.message;
+        state.token = action.payload.token;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;
