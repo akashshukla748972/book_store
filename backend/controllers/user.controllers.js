@@ -37,6 +37,20 @@ export const handleUserRegister = async (req, res, next) => {
 
     newUser = await userModel.findById(newUser._id).select("-password");
 
+    const payload = {
+      _id: newUser._id,
+      email: newUser.email,
+    };
+
+    const token = await getJwtToken(payload);
+    if (token.isError) {
+      return next(new CustomError(token?.message, token?.statulCode));
+    }
+    return res.status(200).json({
+      message: "Successfully user registerd",
+      token: token?.token,
+    });
+
     return res.status(201).json({
       message: "User registered successfully",
       data: newUser,
