@@ -11,7 +11,6 @@ const Course = () => {
   const dispatch = useDispatch();
 
   const { books, isLoading } = getBook;
-  console.log("book:", getBook);
 
   useEffect(() => {
     dispatch(getAllBook());

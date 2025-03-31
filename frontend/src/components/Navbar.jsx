@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Login from "../pages/Login";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../store/slices/userSlice";
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+
   const element = document.documentElement;
 
   useEffect(() => {
@@ -150,13 +155,28 @@ const Navbar = () => {
             </label>
           </div>
           <div className="">
-            <button
-              onClick={() => document.getElementById("my_modal_3").showModal()}
-              className="bg-black text-white p-2 rounded-md hover:bg-slate-500 duration-300 cursor-pointer"
-            >
-              Login
-            </button>
-            <Login />
+            {user ? (
+              <>
+                <button
+                  onClick={() => dispatch(logout())}
+                  className="bg-black text-white p-2 rounded-md hover:bg-slate-500 duration-300 cursor-pointer"
+                >
+                  logout
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() =>
+                    document.getElementById("my_modal_3").showModal()
+                  }
+                  className="bg-black text-white p-2 rounded-md hover:bg-slate-500 duration-300 cursor-pointer"
+                >
+                  login
+                </button>
+                <Login />
+              </>
+            )}
           </div>
         </div>
       </div>

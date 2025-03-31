@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser } from "../store/slices/userSlice";
+import { getUserData, loginUser } from "../store/slices/userSlice";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const {
@@ -13,11 +14,22 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(user);
 
   const handleLogin = (e) => {
     dispatch(loginUser(e));
   };
+
+  useEffect(() => {
+    if (user.token) {
+      const { _id } = jwtDecode(user.token);
+      dispatch(getUserData(_id));
+    }
+  }, [user.token]);
+
+  if (user.user) {
+    navigate(-1);
+  }
+
   return (
     <div>
       <dialog id="my_modal_3" className="modal">
