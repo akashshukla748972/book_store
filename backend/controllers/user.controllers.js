@@ -46,7 +46,7 @@ export const handleUserRegister = async (req, res, next) => {
     if (token.isError) {
       return next(new CustomError(token?.message, token?.statulCode));
     }
-    return res.status(200).json({
+    return res.status(201).json({
       message: "Successfully user registerd",
       token: token?.token,
     });

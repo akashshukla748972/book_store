@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
@@ -20,11 +20,18 @@ const Signup = () => {
   const handleLogin = (e) => {
     dispatch(registerUser(e));
   };
-
-  if (user.successMessage) {
-    toast.success(user.successMessage);
-    navigate(-1);
-  }
+  useEffect(() => {
+    if (user.errorMessage) {
+      toast.error(user.errorMessage);
+    }
+    if (user.user) {
+      toast.success(user.successMessage);
+      setTimeout(() => {
+        navigate(-1);
+      }, 500);
+      navigate(-1);
+    }
+  }, [user.errorMessage, user.successMessage]);
 
   return (
     <div className="flex justify-center items-center h-screen bg-white dark:bg-slate-900">
@@ -72,7 +79,7 @@ const Signup = () => {
             </label>
             <input
               {...register("password", { required: "Password is required!" })}
-              type="text"
+              type="password"
               className="p-2 bg-gray-200 dark:bg-slate-900 outline-none"
               placeholder="Enter your password"
             />

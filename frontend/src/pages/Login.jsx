@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,24 +22,36 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (user.token) {
-      try {
-        const decoded = jwtDecode(user.token);
-        if (decoded._id) {
-          dispatch(getUserData(decoded._id));
-          toast.success("User logged in successfully");
+    const fetchUserData = async () => {
+      if (user.token) {
+        try {
+          const decoded = jwtDecode(user.token);
+          if (decoded._id) {
+            await dispatch(getUserData(decoded._id)); // ✅ Async Call
+          }
+        } catch (error) {
+          console.error("Invalid Token:", error);
         }
-      } catch (error) {
-        console.error("Invalid Token:", error);
       }
-    }
-  }, [user.token]);
+    };
 
-  useEffect(() => {
+    fetchUserData();
+  }, [user.token, dispatch]);
+
+  useLayoutEffect(() => {
     if (user.user) {
       navigate("/");
     }
   }, [user.user]);
+
+  useEffect(() => {
+    if (user.errorMessage) {
+      toast.error(user.errorMessage);
+    }
+    if (user.user) {
+      toast.success("User successfully registerd!");
+    }
+  }, [user.errorMessage, user.user]);
 
   return (
     <div>

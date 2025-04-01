@@ -41,9 +41,12 @@ export const registerUser = createAsyncThunk(
   "registerUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const respone = await Axios.post("/users/register", userData);
-      console.log("Response: ", respone);
-      return respone.data;
+      const response = await Axios.post("/users/register", userData);
+      console.log("res: ", response);
+      if (response.status == 201) {
+        localStorage.setItem("token", response.data.token);
+      }
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Sign Failed");
     }
@@ -66,20 +69,29 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
+        state.isError = false;
+        state.errorMessage = null;
+        state.successMessage = action.payload.message;
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = null;
+        state.successMessage = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;
+        state.successMessage = null;
       });
 
     builder
       .addCase(getUserData.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload;
+        state.successMessage = action.payload.message;
+        state.errorMessage = null;
       })
       .addCase(getUserData.pending, (state) => {
         state.isLoading = true;
@@ -87,6 +99,7 @@ const userSlice = createSlice({
       .addCase(getUserData.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
+        state.successMessage = null;
         state.errorMessage = action.payload;
       });
     builder
@@ -94,14 +107,18 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.successMessage = action.payload.message;
         state.token = action.payload.token;
+        state.errorMessage = null;
       })
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
+        state.errorMessage = null;
+        state.successMessage = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;
+        state.successMessage = null;
       });
   },
 });
