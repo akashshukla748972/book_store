@@ -24,7 +24,7 @@ const About = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-center space-y-6 md:gap-20 my-10">
+        <div className="flex flex-col md:flex-row items-center space-y-6 md:gap-20 my-10 gap-3">
           <div className="w-[100%] md:w-[70%] text-center md:text-left mx-auto space-y-6 order-2">
             <h2 className="text-3xl font-semibold">
               Our Mission: Bringing Stories to Life{" "}
@@ -52,7 +52,7 @@ const About = () => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-center space-y-6 md:space-x-20 my-10">
-          <div className="w-[100%] md:w-[70%] text-center md:text-left mx-auto space-y-6">
+          <div className="w-[100%] md:w-[50%] text-center md:text-left mx-auto space-y-6">
             <h2 className="text-3xl font-semibold">Why Choose Us?</h2>
             <p className="text-base font-medium text-gray-800 dark:text-gray-200">
               <ul className="text-left list-disc px-10 space-y-3">
