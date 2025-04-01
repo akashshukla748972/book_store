@@ -4,10 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBook } from "../store/slices/bookSlice";
+import Signup from "./Signup";
 
 const Course = () => {
   const navigate = useNavigate();
   const getBook = useSelector((state) => state.book);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const { books, isLoading } = getBook;
@@ -18,6 +20,10 @@ const Course = () => {
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (!user) {
+    return <Signup />;
   }
   return (
     <>

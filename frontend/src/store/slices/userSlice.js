@@ -42,7 +42,6 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await Axios.post("/users/register", userData);
-      console.log("res: ", response);
       if (response.status == 201) {
         localStorage.setItem("token", response.data.token);
       }
